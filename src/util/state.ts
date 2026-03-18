@@ -97,6 +97,8 @@ export class PageState {
 
   isHTMLPage = true;
   text?: string;
+  textFromResponse?: string;
+  documentRequestId?: string;
   screenshotView?: Buffer;
   favicon?: string;
 

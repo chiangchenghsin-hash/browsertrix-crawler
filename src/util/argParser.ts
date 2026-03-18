@@ -26,6 +26,7 @@ import {
   ExitCodes,
   BROWSER_STARTUP_TIMEOUT_SECS,
   DEFAULT_SITEMAP_WORKERS,
+  type ExtractTextType,
 } from "./constants.js";
 import { interpolateFilename } from "./storage.js";
 import { screenshotTypes } from "./screenshots.js";
@@ -45,7 +46,7 @@ export type CrawlerArgs = ReturnType<typeof parseArgs> & {
   logLevel: LogLevel[];
   logContext: LogContext[];
   logExcludeContext: LogContext[];
-  text: string[];
+  text: ExtractTextType[];
 
   customBehaviors: string[];
 
