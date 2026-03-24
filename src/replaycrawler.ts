@@ -53,10 +53,10 @@ type ComparisonData = {
       replayGood?: number;
       replayBad?: number;
     };
-  };
-  csrClues?: {
-    clues: Record<string, number>;
-    categories: Record<string, number>;
+    csrClues?: {
+      clues: Record<string, number>;
+      categories: Record<string, number>;
+    };
   };
 };
 
@@ -922,11 +922,10 @@ export class ReplayCrawler extends Crawler {
       }
 
       if (state) {
-        const { comparison, csrClues } = pageInfo;
+        const { comparison } = pageInfo;
 
         // add comparison & csr clues to page state
         (state as ComparisonPageState).comparison = comparison;
-        (state as ComparisonPageState).csrClues = csrClues;
       }
 
       this.infoWriter?.writeNewResourceRecord(
@@ -1031,7 +1030,7 @@ export class ReplayCrawler extends Crawler {
     }
 
     // add clue counts to pageInfo
-    pageInfo["csrClues"] = {
+    pageInfo.comparison["csrClues"] = {
       clues: clueCounts,
       categories: categoryCounts,
     };
@@ -1055,7 +1054,6 @@ export class ReplayCrawler extends Crawler {
     state: ComparisonPageState,
   ) {
     entry.comparison = state.comparison;
-    if (state.csrClues) entry.csrClues = state.csrClues;
     return entry;
   }
 
