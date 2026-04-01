@@ -1470,15 +1470,15 @@ self.__bx_behaviors.selectMainBehavior();
       }
     }
 
-    let textextract = null;
+    let textExtract = null;
 
     if (this.textWriter) {
-      textextract = new TextExtractViaSnapshot(cdp, {
+      textExtract = new TextExtractViaSnapshot(cdp, {
         writer: this.textWriter,
         url,
         skipDocs: this.skipTextDocs,
       });
-      const { text } = await textextract.extractAndStoreText(
+      const { text } = await textExtract.extractAndStoreText(
         "text",
         false,
         this.params.text.includes("to-warc"),
@@ -1494,14 +1494,14 @@ self.__bx_behaviors.selectMainBehavior();
           { url, hasRequestId: !!data.documentRequestId },
           "text",
         );
-        textextract = new TextExtractViaResponse(cdp, {
+        textExtract = new TextExtractViaResponse(cdp, {
           writer: this.textWriter,
           url,
           skipDocs: this.skipTextDocs,
           requestId: data.documentRequestId,
         });
         const { text: textFromResponse } =
-          await textextract.extractAndStoreText(
+          await textExtract.extractAndStoreText(
             "text-from-response",
             false,
             this.params.text.includes("to-warc-from-raw"),
@@ -1545,8 +1545,8 @@ self.__bx_behaviors.selectMainBehavior();
           data.loadState = LoadState.BEHAVIORS_DONE;
         }
 
-        if (textextract && this.params.text.includes("final-to-warc")) {
-          await textextract.extractAndStoreText("textFinal", true, true);
+        if (textExtract && this.params.text.includes("final-to-warc")) {
+          await textExtract.extractAndStoreText("textFinal", true, true);
         }
 
         if (
@@ -3073,6 +3073,7 @@ self.__bx_behaviors.extractLinks(${JSON.stringify(selector)}, ${JSON.stringify(
     ts = 0,
     pageid = undefined,
     ignoreScope = false,
+    originalWarcRecordId = undefined,
   }: {
     seedId: number;
     url: string;
@@ -3082,6 +3083,7 @@ self.__bx_behaviors.extractLinks(${JSON.stringify(selector)}, ${JSON.stringify(
     ts?: number;
     pageid?: string;
     ignoreScope?: boolean;
+    originalWarcRecordId?: string,
   }) {
     if (this.limitHit) {
       logger.debug(
@@ -3107,7 +3109,7 @@ self.__bx_behaviors.extractLinks(${JSON.stringify(selector)}, ${JSON.stringify(
     }
 
     const result = await this.crawlState.addToQueue(
-      { url, seedId, depth, extraHops, ts, pageid, ignoreScope },
+      { url, seedId, depth, extraHops, ts, pageid, ignoreScope, originalWarcRecordId },
       this.queuePageLimit,
     );
 
