@@ -1526,6 +1526,7 @@ return inx;
       ts = 0,
       pageid = undefined,
       ignoreScope = undefined,
+      originalWarcRecordId = undefined,
     }: QueueEntry,
     limit = 0,
   ) {
