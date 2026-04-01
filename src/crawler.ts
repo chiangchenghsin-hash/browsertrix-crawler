@@ -1482,6 +1482,7 @@ self.__bx_behaviors.selectMainBehavior();
         "text",
         false,
         this.params.text.includes("to-warc"),
+        data.originalWarcRecordId,
       );
 
       if (text !== null && (this.textInPages || saveOutput)) {
@@ -1491,7 +1492,11 @@ self.__bx_behaviors.selectMainBehavior();
       if (this.params.text.includes("to-warc-from-raw")) {
         logger.info(
           "Extracting text from raw response",
-          { url, hasRequestId: !!data.documentRequestId },
+          {
+            url,
+            hasRequestId: !!data.documentRequestId,
+            refersTo: String(data.originalWarcRecordId),
+          },
           "text",
         );
         textExtract = new TextExtractViaResponse(cdp, {
@@ -1505,10 +1510,15 @@ self.__bx_behaviors.selectMainBehavior();
             "text-from-response",
             false,
             this.params.text.includes("to-warc-from-raw"),
+            data.originalWarcRecordId,
           );
         logger.info(
           "Extracted text from raw response result",
-          { url, hasText: textFromResponse !== null },
+          {
+            url,
+            hasText: textFromResponse !== null,
+            refersTo: String(data.originalWarcRecordId),
+          },
           "text",
         );
         if (textFromResponse !== null && (this.textInPages || saveOutput)) {
@@ -1546,7 +1556,12 @@ self.__bx_behaviors.selectMainBehavior();
         }
 
         if (textExtract && this.params.text.includes("final-to-warc")) {
-          await textExtract.extractAndStoreText("textFinal", true, true);
+          await textExtract.extractAndStoreText(
+            "textFinal",
+            true,
+            true,
+            data.originalWarcRecordId,
+          );
         }
 
         if (

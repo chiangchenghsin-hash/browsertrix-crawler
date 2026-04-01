@@ -138,6 +138,15 @@ export class PageState {
       this.ignoreScope = redisData.ignoreScope;
     }
     this.originalWarcRecordId = redisData.originalWarcRecordId;
+    logger.debug(
+      "PageState created",
+      {
+        url: this.url,
+        pageid: this.pageid,
+        originalWarcRecordId: String(this.originalWarcRecordId),
+      },
+      "state",
+    );
   }
 }
 
@@ -1534,6 +1543,9 @@ return inx;
     }
     if (ignoreScope) {
       data.ignoreScope = ignoreScope;
+    }
+    if (originalWarcRecordId) {
+      data.originalWarcRecordId = originalWarcRecordId;
     }
 
     // return codes
