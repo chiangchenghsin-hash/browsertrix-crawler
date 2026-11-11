@@ -27,7 +27,7 @@ test("check that urn:text and urn:textfinal records are written to WARC", async 
 
 test("check that raw text extraction creates urn:text-from-response records", async () => {
   fs.rmSync("./test-crawls/raw-text-crawl", { recursive: true, force: true });
-  
+
   try {
     child_process.execSync(
       "docker run -v $PWD/test-crawls:/crawls webrecorder/browsertrix-crawler crawl --collection raw-text-crawl --url https://example.com/ --scopeType page --generateCDX --text to-warc,to-warc-from-raw",
@@ -43,7 +43,9 @@ test("check that raw text extraction creates urn:text-from-response records", as
 
   // Regular rendered text record
   expect(data.indexOf("urn:text:https://example.com/") >= 0).toBe(true);
-  
+
   // Raw response text record
-  expect(data.indexOf("urn:text-from-response:https://example.com/") >= 0).toBe(true);
+  expect(data.indexOf("urn:text-from-response:https://example.com/") >= 0).toBe(
+    true,
+  );
 });

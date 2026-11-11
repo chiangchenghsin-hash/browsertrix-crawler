@@ -746,7 +746,8 @@ class ArgParser {
         qaRandom: {
           describe:
             "if set, QA a random sample of pages. Must be paired with --pageLimit",
-        }
+          type: "boolean",
+        },
 
         qaDetectClientSideRendering: {
           describe:

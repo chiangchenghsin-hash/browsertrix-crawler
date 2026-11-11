@@ -276,9 +276,17 @@ export class WARCWriter implements IndexerOffsetLength {
   }
 
   private async _writeNewResourceRecord(
-    { buffer, resourceType, contentType, url, date, refersTo }: ResourceRecordData,
+    {
+      buffer,
+      resourceType,
+      contentType,
+      url,
+      date,
+      refersTo,
+    }: ResourceRecordData,
     callback: ((length: number, offset: number) => void) | undefined,
   ) {
+    const warcVersion = "WARC/1.1";
     const warcRecordType = "resource";
     const warcHeaders: Record<string, string> = { "Content-Type": contentType };
     if (refersTo) {

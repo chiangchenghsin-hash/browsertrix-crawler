@@ -301,7 +301,7 @@ export class ReplayCrawler extends Crawler {
       extraHops: 0,
       ts,
       pageid: id,
-      originalWarcRecordId: id
+      originalWarcRecordId: id,
     };
 
     if (this.qaRandom && this.pageLimit > 0) {

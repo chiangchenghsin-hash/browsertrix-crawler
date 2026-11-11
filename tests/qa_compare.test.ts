@@ -1,9 +1,7 @@
 import child_process from "child_process";
 import fs from "fs";
 import { Redis } from "ioredis";
-<<<<<<< HEAD:tests/qa_compare.test.ts
 import { sleep } from "./utils";
-=======
 
 /**
  *

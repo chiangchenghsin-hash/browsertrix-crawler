@@ -3098,7 +3098,7 @@ self.__bx_behaviors.extractLinks(${JSON.stringify(selector)}, ${JSON.stringify(
     ts?: number;
     pageid?: string;
     ignoreScope?: boolean;
-    originalWarcRecordId?: string,
+    originalWarcRecordId?: string;
   }) {
     if (this.limitHit) {
       logger.debug(
@@ -3124,7 +3124,16 @@ self.__bx_behaviors.extractLinks(${JSON.stringify(selector)}, ${JSON.stringify(
     }
 
     const result = await this.crawlState.addToQueue(
-      { url, seedId, depth, extraHops, ts, pageid, ignoreScope, originalWarcRecordId },
+      {
+        url,
+        seedId,
+        depth,
+        extraHops,
+        ts,
+        pageid,
+        ignoreScope,
+        originalWarcRecordId,
+      },
       this.queuePageLimit,
     );
 
